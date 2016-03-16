@@ -1,3 +1,14 @@
+
+```
+<script src="bower_components/angular/angular.js"></script>
+<script src="src/browserMqtt.js"></script>
+<script src="src/angular-MQTT.js"></script>
+
+```
+
+---
+
+
 ```
     var app = angular.module('app', [
         'ngMQTT'
