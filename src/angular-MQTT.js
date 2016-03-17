@@ -19,7 +19,7 @@ angular.module('ngMQTT', [])
     }])
 
     .service('MQTTService',
-        ['$q', 'MQTT', function($q, MQTT) {
+        ['$q', '$rootScope', 'MQTT', function($q, $rootScope, MQTT) {
             var Service = {};
             var callbacks = {};
 
@@ -32,8 +32,17 @@ angular.module('ngMQTT', [])
                     throw new Error("received data can not parse for JSON !");
                 }
                 angular.forEach(callbacks,function(callback, name){
-                    if(name === topic){
-                        callback(data);
+                    var regexpStr = name.replace(new RegExp('(#)|(\\*)'),function(str){
+                        if(str=="#"){
+                            return ".*?"
+                        }else if(str=="*"){
+                            return ".*?"
+                        }
+                    });
+                    if(topic.match(regexpStr)){
+                        $rootScope.$apply(function() {
+                            callback(data);
+                        });
                     }
                 })
             });
