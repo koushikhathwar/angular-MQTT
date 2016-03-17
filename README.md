@@ -30,3 +30,5 @@
     }]);
 
 ```
+
+MQTT server install mothod see: http://blog.csdn.net/qhdcsj/article/details/45042515
