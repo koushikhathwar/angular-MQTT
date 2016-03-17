@@ -1,15 +1,20 @@
 
+## USE
+
+```bash
+bower install angular-mqtt
 ```
+
+
+```html
 <script src="bower_components/angular/angular.js"></script>
-<script src="src/browserMqtt.js"></script>
-<script src="src/angular-MQTT.js"></script>
+<script src="bower_components/angular-mqtt/src/browserMqtt.js"></script>
+<script src="bower_components/angular-mqtt/src/angular-MQTT.js"></script>
 
 ```
 
----
 
-
-```
+```javascript
     var app = angular.module('app', [
         'ngMQTT'
     ]);
@@ -31,4 +36,11 @@
 
 ```
 
+
+
+##TODO
+
+- add auth
+
+---
 MQTT server install mothod see: http://blog.csdn.net/qhdcsj/article/details/45042515
