@@ -5,7 +5,10 @@
     "shellus <shellus@endaosi.com>"
   ],
   "description": "Wrapper MQTT(websocket) in angularjs",
-  "main": "",
+  "main": [
+    "src/angular-MQTT.js",
+    "src/browserMqtt.js",
+  ],
   "moduleType": [],
   "keywords": [
     "angular",
