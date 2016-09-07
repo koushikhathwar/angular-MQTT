@@ -7,7 +7,7 @@
   "description": "Wrapper MQTT(websocket) in angularjs",
   "main": [
     "./src/angular-MQTT.js",
-    "./src/browserMqtt.js",
+    "./src/browserMqtt.js"
   ],
   "moduleType": [],
   "keywords": [
