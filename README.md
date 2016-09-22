@@ -1,3 +1,6 @@
+# angular-MQTT
+
+This project is based on https://github.com/mqttjs/MQTT.js#browser
 
 ## USE
 
