@@ -29,16 +29,24 @@ angular.module('ngMQTT', [])
                 try {
                     var data = JSON.parse(payload.toString());
                 }catch (e){
-                    throw new Error("received data can not parse for JSON !");
+                    var data = payload.toString();
                 }
                 angular.forEach(callbacks,function(callback, name){
-                    var regexpStr = name.replace(new RegExp('(#)|(\\*)'),function(str){
-                        if(str=="#"){
-                            return ".*?"
-                        }else if(str=="*"){
-                            return ".*?"
-                        }
-                    });
+                    var regexpStr = name.replace(new RegExp('(#)|(\\*)|(\\+)'),function(str){
+                      switch (str) {
+                        case "#":
+                          return ".*?"
+                          break;
+                        case "*":
+                          return ".*?"
+                          break;
+                        case "+":
+                          return ".*"
+                          break;
+                        default:
+                          break;
+                    }
+                  });
                     if(topic.match(regexpStr)){
                         $rootScope.$apply(function() {
                             callback(data);
