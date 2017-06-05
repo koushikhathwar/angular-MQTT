@@ -29,7 +29,7 @@ angular.module('ngMQTT', [])
                 try {
                     var data = JSON.parse(payload.toString());
                 }catch (e){
-                    var data = payload.toString();
+                    throw new Error("received data can not parse for JSON !");
                 }
                 angular.forEach(callbacks,function(callback, name){
                     var regexpStr = name.replace(new RegExp('(#)|(\\*)'),function(str){
@@ -41,7 +41,7 @@ angular.module('ngMQTT', [])
                     });
                     if(topic.match(regexpStr)){
                         $rootScope.$apply(function() {
-                            callback(data, topic);
+                            callback(data);
                         });
                     }
                 })
@@ -55,6 +55,10 @@ angular.module('ngMQTT', [])
             };
             Service.send = function(name, data){
                 client.publish(name, JSON.stringify(data));
+            };
+            Service.drop = function(name, callback){
+                callbacks[name] = callback;
+                client.unsubscribe(name);
             };
             return Service;
         }]);
