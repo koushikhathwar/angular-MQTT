@@ -49,7 +49,7 @@ angular.module('ngMQTT', [])
                   });
                     if(topic.match(regexpStr)){
                         $rootScope.$apply(function() {
-                            callback(data);
+                            callback(data, topic);
                         });
                     }
                 })
