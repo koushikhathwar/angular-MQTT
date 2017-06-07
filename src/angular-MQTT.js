@@ -32,13 +32,21 @@ angular.module('ngMQTT', [])
                     var data = payload.toString();
                 }
                 angular.forEach(callbacks,function(callback, name){
-                    var regexpStr = name.replace(new RegExp('(#)|(\\*)'),function(str){
-                        if(str=="#"){
-                            return ".*?"
-                        }else if(str=="*"){
-                            return ".*?"
-                        }
-                    });
+                    var regexpStr = name.replace(new RegExp('(#)|(\\*)|(\\+)'),function(str){
+                      switch (str) {
+                        case "#":
+                          return ".*?"
+                          break;
+                        case "*":
+                          return ".*?"
+                          break;
+                        case "+":
+                          return ".*"
+                          break;
+                        default:
+                          break;
+                    }
+                  });
                     if(topic.match(regexpStr)){
                         $rootScope.$apply(function() {
                             callback(data, topic);
@@ -55,6 +63,10 @@ angular.module('ngMQTT', [])
             };
             Service.send = function(name, data){
                 client.publish(name, JSON.stringify(data));
+            };
+            Service.drop = function(name, callback){
+                callbacks[name] = callback;
+                client.unsubscribe(name);
             };
             return Service;
         }]);
